@@ -1289,9 +1289,9 @@ see:  http://www.reprap.org</description>
 <part name="R7" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="510K"/>
 <part name="R8" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="100K"/>
 <part name="D1" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323" value="1N4148"/>
-<part name="D2" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323"/>
-<part name="D3" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323"/>
-<part name="D4" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323"/>
+<part name="D2" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323" value="1N4148"/>
+<part name="D3" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323" value="1N4148"/>
+<part name="D4" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323" value="1N4148"/>
 <part name="T1" library="dp_devices" deviceset="TRANSISTOR_BJT_NPN" device="-SOT-23-BCE"/>
 <part name="C1" library="ATtami" deviceset="CAP" device="0805" value="0.2uF"/>
 <part name="C2" library="ATtami" deviceset="CAP" device="0805" value="0.2uF"/>
