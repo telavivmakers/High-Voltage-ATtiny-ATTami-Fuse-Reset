@@ -677,7 +677,7 @@ design rules under a new name.
 <element name="R8" library="ATtami" package="0805" value="100K" x="40.64" y="39.37" rot="R270"/>
 <element name="T1" library="dp_devices" package="SOT-23" value="" x="45.72" y="41.91" rot="R180"/>
 <element name="U2" library="adafruit" package="ARDUINOR3-BPLACE" value="ARDUINOR3-BPLACE" x="0" y="0"/>
-<element name="IC1" library="reprap" package="SOCKET-08" value="" x="7.62" y="29.21"/>
+<element name="IC1" library="reprap" package="SOCKET-08" value="" x="6.35" y="29.21"/>
 <element name="U3" library="Atmel_By_element14_Batch_1-00" package="SOIC127P798X216-8N" value="ATTINY85-20PU" x="81.28" y="22.86">
 <attribute name="PACKAGE" value="SOIC-8" x="81.28" y="22.86" size="1.778" layer="27" display="off"/>
 <attribute name="OC_NEWARK" value="58M3797" x="81.28" y="22.86" size="1.778" layer="27" display="off"/>
@@ -715,7 +715,7 @@ design rules under a new name.
 <wire x1="40.64" y1="40.27" x2="45.72" y2="40.81" width="0" layer="19" extent="1-1"/>
 <wire x1="35.56" y1="44.08" x2="40.64" y2="40.27" width="0" layer="19" extent="1-1"/>
 <wire x1="26.416" y1="50.8" x2="35.56" y2="44.08" width="0" layer="19" extent="1-1"/>
-<wire x1="11.43" y1="25.4" x2="35.56" y2="44.08" width="0" layer="19" extent="1-1"/>
+<wire x1="10.16" y1="25.4" x2="35.56" y2="44.08" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VIN">
 <contactref element="U2" pad="VIN"/>
@@ -737,21 +737,21 @@ design rules under a new name.
 <contactref element="IC1" pad="8"/>
 <contactref element="IC2" pad="1"/>
 <wire x1="2.54" y1="36.83" x2="41.656" y2="50.8" width="0" layer="19" extent="1-1"/>
-<wire x1="3.81" y1="33.02" x2="2.54" y2="36.83" width="0" layer="19" extent="1-1"/>
+<wire x1="2.54" y1="33.02" x2="2.54" y2="36.83" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$2">
 <contactref element="R1" pad="2"/>
 <contactref element="IC1" pad="5"/>
 <contactref element="IC2" pad="7"/>
 <wire x1="17.78" y1="36.83" x2="39.37" y2="46.09" width="0" layer="19" extent="1-1"/>
-<wire x1="11.43" y1="33.02" x2="17.78" y2="36.83" width="0" layer="19" extent="1-1"/>
+<wire x1="10.16" y1="33.02" x2="17.78" y2="36.83" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$3">
 <contactref element="R2" pad="2"/>
 <contactref element="IC1" pad="6"/>
 <contactref element="IC2" pad="8"/>
 <wire x1="17.78" y1="44.45" x2="36.83" y2="46.09" width="0" layer="19" extent="1-1"/>
-<wire x1="8.89" y1="33.02" x2="17.78" y2="44.45" width="0" layer="19" extent="1-1"/>
+<wire x1="7.62" y1="33.02" x2="17.78" y2="44.45" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$10">
 <contactref element="D2" pad="AQ"/>
@@ -787,7 +787,7 @@ design rules under a new name.
 <wire x1="35.56" y1="40.27" x2="35.56" y2="42.28" width="0" layer="19" extent="1-1"/>
 <wire x1="31.75" y1="46.09" x2="35.56" y2="42.28" width="0" layer="19" extent="1-1"/>
 <wire x1="5.08" y1="36.83" x2="31.75" y2="46.09" width="0" layer="19" extent="1-1"/>
-<wire x1="6.35" y1="25.4" x2="5.08" y2="36.83" width="0" layer="19" extent="1-1"/>
+<wire x1="5.08" y1="25.4" x2="5.08" y2="36.83" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="P1">
 <contactref element="C1" pad="2"/>
@@ -808,7 +808,7 @@ design rules under a new name.
 <contactref element="IC2" pad="4"/>
 <wire x1="41.413" y1="43.434" x2="44.77" y2="43.01" width="0" layer="19" extent="1-1"/>
 <wire x1="10.16" y1="36.83" x2="41.413" y2="43.434" width="0" layer="19" extent="1-1"/>
-<wire x1="3.81" y1="25.4" x2="10.16" y2="36.83" width="0" layer="19" extent="1-1"/>
+<wire x1="2.54" y1="25.4" x2="10.16" y2="36.83" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="N$19">
 <contactref element="R5" pad="1"/>
@@ -864,7 +864,7 @@ design rules under a new name.
 <contactref element="IC1" pad="7"/>
 <contactref element="R3" pad="2"/>
 <wire x1="15.24" y1="44.45" x2="33.655" y2="46.09" width="0" layer="19" extent="1-1"/>
-<wire x1="6.35" y1="33.02" x2="15.24" y2="44.45" width="0" layer="19" extent="1-1"/>
+<wire x1="5.08" y1="33.02" x2="15.24" y2="44.45" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="PUMP_VCC">
 <contactref element="U2" pad="D4"/>
