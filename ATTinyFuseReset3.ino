@@ -81,8 +81,9 @@ void loop() {
   Serial.println("Insert one (only one!) out of the following components into the appropriate socket:");
   Serial.println("ATTami board or ATtiny13 MCU or ATTiny24 MCU or ATTiny44 MCU or ATTiny84 MCU or ATTiny25 MCU or ATTiny45 MCU or ATTiny85 MCU");
   Serial.println("Push RNTER to run");
+  Serial.println("");
   while (Serial.available() == 0);
-  Serial.read();
+  while (Serial.available() >0) Serial.read();
   pinMode(SDO, OUTPUT);     // Set SDO to output
   digitalWrite(SDI, LOW);
   digitalWrite(SII, LOW);
@@ -107,7 +108,7 @@ void loop() {
   if (sig == ATTINY45) Serial.println("ATTiny45");
   if (sig == ATTINY84) Serial.println("ATTiny84");
   if (sig == ATTINY85) Serial.println("ATTiny85");
-  Serial.print("Current fuses setting is: ");
+  Serial.print("Previous fuses setting was: ");
   readFuses();
   if (sig == ATTINY13) {
     writeFuse(LFUSE, 0x6A);
@@ -119,7 +120,7 @@ void loop() {
     writeFuse(HFUSE, 0xDF);
     writeFuse(EFUSE, 0xFF);
   }
-  Serial.print("Updated fuses setting is: ");
+  Serial.print("Current fuses setting is:   ");
   readFuses();
   digitalWrite(SCI, LOW);
   digitalWrite(ATtiny_VCC, LOW);    // Target Vcc Off
