@@ -8,11 +8,11 @@
 // Fuse Calc:
 //   http://www.engbedded.com/fusecalc/
 
-#define  SCI		12	// D12, Target Clock Input
-#define  SDO		11	// D11, Target Data Output
-#define  SII		10	// D10, Target Instruction Input
-#define  SDI		9	// D9,  Target Data Input
-#define  ATtiny_VCC	8	// D8,  Target VCC
+#define  SCI		9    // D9, Target Clock
+#define  SDO		13   // D13, Target Data Output
+#define  SII		12   // D12, Target Instruction Input
+#define  SDI		11   // D11,  Target Data Input
+#define  ATtiny_VCC	8    // D8,  Target VCC
 
 #define  HFUSE  0x747C
 #define  LFUSE  0x646C
@@ -28,11 +28,11 @@
 #define  ATTINY85   0x930B  // L: 0x62, H: 0xDF, E: 0xFF    8 pin
 
 // Define Direct I/O pins for Charge Pump
-#define P1			0x04	// Pin D2
-#define P2			0x08	// Pin D3
+#define P1		0x04	// Pin D2
+#define P2		0x08	// Pin D3
 #define Pump_VCC	0x10	// Pin D4
 #define HV_off		0x20	// Pin D5
-#define REF			330		//calibrated reference to achieve High Voltage of 11.5 volts
+#define REF		330		//calibrated reference to achieve High Voltage of 11.5 volts
 
 // Variables used by Charge pump
 volatile char phase = 0;
