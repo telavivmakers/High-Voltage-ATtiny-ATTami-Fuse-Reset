@@ -1855,7 +1855,7 @@ We've spent an enormous amount of time creating and checking these footprints an
 <part name="R3" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="1K"/>
 <part name="R4" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="1K"/>
 <part name="R5" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="10K"/>
-<part name="R6" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="1K"/>
+<part name="R6" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="10K"/>
 <part name="R7" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="510K"/>
 <part name="R8" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="100K"/>
 <part name="D1" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323" value="1N4148"/>
@@ -1881,7 +1881,7 @@ We've spent an enormous amount of time creating and checking these footprints an
 <part name="R9" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="1K"/>
 <part name="SUPPLY5" library="supply2" deviceset="GND" device=""/>
 <part name="LED1" library="ATtami" deviceset="LED" device="-0805"/>
-<part name="R10" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="10k"/>
+<part name="R10" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="1k"/>
 <part name="D5" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323" value="1N4148"/>
 <part name="JP11" library="SparkFun-Connectors" deviceset="M03X2" device=""/>
 <part name="JP12" library="microbuilder" deviceset="HEADER-2X5" device=""/>
@@ -1899,7 +1899,7 @@ We've spent an enormous amount of time creating and checking these footprints an
 <part name="-HEADERS1" library="ATtami" deviceset="ATTANI_BREAKOUT_PINS" device="NOHEAD"/>
 <part name="-HEADERS2" library="ATtami" deviceset="ATTANI_BREAKOUT_PINS" device="NOHEAD"/>
 <part name="-HEADERS3" library="ATtami" deviceset="ATTANI_BREAKOUT_PINS" device=""/>
-<part name="R11" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="1K"/>
+<part name="R11" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="10K"/>
 </parts>
 <sheets>
 <sheet>
@@ -1964,7 +1964,7 @@ vcc      |   </text>
 </instance>
 <instance part="R6" gate="G$1" x="-180.34" y="116.84" smashed="yes" rot="R90">
 <attribute name="NAME" x="-176.5046" y="121.92" size="1.778" layer="95" rot="R180"/>
-<attribute name="VALUE" x="-177.038" y="113.03" size="1.778" layer="96" rot="R180"/>
+<attribute name="VALUE" x="-175.514" y="113.284" size="1.778" layer="96" rot="R180"/>
 </instance>
 <instance part="R7" gate="G$1" x="-269.24" y="124.46" smashed="yes" rot="R90">
 <attribute name="NAME" x="-265.4046" y="129.286" size="1.778" layer="95" rot="R180"/>
