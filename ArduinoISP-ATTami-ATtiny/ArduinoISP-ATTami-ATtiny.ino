@@ -45,10 +45,11 @@
 
 #include "pins_arduino.h"
 #define RESET     5
+#define ATTiny_VCC 8 //target VCC
 
-#define LED_HB    A3//9
-#define LED_ERR   A4//8
-#define LED_PMODE A5//7
+#define LED_HB    A3//was 9 in the original design. As for now I'm not using the LEDs in the shield
+#define LED_ERR   A4//was 8 in the original design.
+#define LED_PMODE A5//was 7 in the original design.
 #define PROG_FLICKER true
 
 #define HWVER 2
@@ -67,6 +68,10 @@ void pulse(int pin, int times);
 
 void setup() {
   Serial.begin(19200);
+  pinMode(10, OUTPUT); // Ensures that the built in ATMEGA328 SPI SS would not read the pin as LOW
+  digitalWrite(10, HIGH);
+  pinMode(ATTiny_VCC, OUTPUT);
+  digitalWrite (ATTiny_VCC, HIGH);
   pinMode(LED_PMODE, OUTPUT);
   pulse(LED_PMODE, 2);
   pinMode(LED_ERR, OUTPUT);
@@ -255,11 +260,13 @@ void start_pmode() {
   spi_init();
   // following delays may not work on all targets...
   pinMode(RESET, OUTPUT);
-  digitalWrite(RESET, HIGH);
+//  digitalWrite(RESET, HIGH); //original
+  digitalWrite(RESET, LOW); //modified
   pinMode(SCK, OUTPUT);
   digitalWrite(SCK, LOW);
   delay(50);
-  digitalWrite(RESET, LOW);
+//  digitalWrite(RESET, LOW); //original
+  digitalWrite(RESET, HIGH); //modified
   delay(50);
   pinMode(MISO, INPUT);
   pinMode(MOSI, OUTPUT);
