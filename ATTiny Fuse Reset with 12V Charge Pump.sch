@@ -8,20 +8,20 @@
 </settings>
 <grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="no"/>
-<layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="no"/>
-<layer number="17" name="Pads" color="2" fill="1" visible="yes" active="no"/>
-<layer number="18" name="Vias" color="2" fill="1" visible="yes" active="no"/>
-<layer number="19" name="Unrouted" color="6" fill="1" visible="yes" active="no"/>
-<layer number="20" name="Dimension" color="15" fill="1" visible="yes" active="no"/>
-<layer number="21" name="tPlace" color="7" fill="1" visible="yes" active="no"/>
-<layer number="22" name="bPlace" color="7" fill="1" visible="yes" active="no"/>
-<layer number="23" name="tOrigins" color="15" fill="1" visible="yes" active="no"/>
-<layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="no"/>
-<layer number="25" name="tNames" color="7" fill="1" visible="yes" active="no"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="no"/>
-<layer number="27" name="tValues" color="7" fill="1" visible="yes" active="no"/>
-<layer number="28" name="bValues" color="7" fill="1" visible="yes" active="no"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="no"/>
+<layer number="16" name="Bottom" color="1" fill="1" visible="no" active="no"/>
+<layer number="17" name="Pads" color="2" fill="1" visible="no" active="no"/>
+<layer number="18" name="Vias" color="2" fill="1" visible="no" active="no"/>
+<layer number="19" name="Unrouted" color="6" fill="1" visible="no" active="no"/>
+<layer number="20" name="Dimension" color="15" fill="1" visible="no" active="no"/>
+<layer number="21" name="tPlace" color="7" fill="1" visible="no" active="no"/>
+<layer number="22" name="bPlace" color="7" fill="1" visible="no" active="no"/>
+<layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="no"/>
+<layer number="24" name="bOrigins" color="15" fill="1" visible="no" active="no"/>
+<layer number="25" name="tNames" color="7" fill="1" visible="no" active="no"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="no" active="no"/>
+<layer number="27" name="tValues" color="7" fill="1" visible="no" active="no"/>
+<layer number="28" name="bValues" color="7" fill="1" visible="no" active="no"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="no"/>
 <layer number="30" name="bStop" color="7" fill="6" visible="no" active="no"/>
 <layer number="31" name="tCream" color="7" fill="4" visible="no" active="no"/>
@@ -30,8 +30,8 @@
 <layer number="34" name="bFinish" color="6" fill="6" visible="no" active="no"/>
 <layer number="35" name="tGlue" color="7" fill="4" visible="no" active="no"/>
 <layer number="36" name="bGlue" color="7" fill="5" visible="no" active="no"/>
-<layer number="37" name="tTest" color="7" fill="1" visible="yes" active="no"/>
-<layer number="38" name="bTest" color="7" fill="1" visible="yes" active="no"/>
+<layer number="37" name="tTest" color="7" fill="1" visible="no" active="no"/>
+<layer number="38" name="bTest" color="7" fill="1" visible="no" active="no"/>
 <layer number="39" name="tKeepout" color="4" fill="11" visible="no" active="no"/>
 <layer number="40" name="bKeepout" color="1" fill="11" visible="no" active="no"/>
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="no"/>
@@ -39,17 +39,17 @@
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="no"/>
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="no"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="no"/>
-<layer number="46" name="Milling" color="3" fill="1" visible="yes" active="no"/>
-<layer number="47" name="Measures" color="7" fill="1" visible="yes" active="no"/>
-<layer number="48" name="Document" color="7" fill="1" visible="yes" active="no"/>
-<layer number="49" name="Reference" color="7" fill="1" visible="yes" active="no"/>
-<layer number="50" name="dxf" color="7" fill="1" visible="yes" active="no"/>
-<layer number="51" name="tDocu" color="7" fill="1" visible="yes" active="no"/>
-<layer number="52" name="bDocu" color="7" fill="1" visible="yes" active="no"/>
-<layer number="53" name="tGND_GNDA" color="7" fill="9" visible="yes" active="no"/>
-<layer number="54" name="bGND_GNDA" color="1" fill="9" visible="yes" active="no"/>
-<layer number="56" name="wert" color="7" fill="1" visible="yes" active="no"/>
-<layer number="57" name="tCAD" color="7" fill="1" visible="yes" active="no"/>
+<layer number="46" name="Milling" color="3" fill="1" visible="no" active="no"/>
+<layer number="47" name="Measures" color="7" fill="1" visible="no" active="no"/>
+<layer number="48" name="Document" color="7" fill="1" visible="no" active="no"/>
+<layer number="49" name="Reference" color="7" fill="1" visible="no" active="no"/>
+<layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
+<layer number="51" name="tDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="52" name="bDocu" color="7" fill="1" visible="no" active="no"/>
+<layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
+<layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
+<layer number="56" name="wert" color="7" fill="1" visible="no" active="no"/>
+<layer number="57" name="tCAD" color="7" fill="1" visible="no" active="no"/>
 <layer number="90" name="Modules" color="5" fill="1" visible="yes" active="yes"/>
 <layer number="91" name="Nets" color="2" fill="1" visible="yes" active="yes"/>
 <layer number="92" name="Busses" color="1" fill="1" visible="yes" active="yes"/>
@@ -605,6 +605,7 @@ DIN A4, landscape with extra doc field</description>
 <rectangle x1="1.016" y1="3.556" x2="1.524" y2="4.064" layer="51" rot="R90"/>
 <rectangle x1="1.016" y1="1.016" x2="1.524" y2="1.524" layer="51" rot="R90"/>
 <rectangle x1="1.016" y1="16.256" x2="1.524" y2="16.764" layer="51" rot="R90"/>
+<circle x="2.54" y="20.32" radius="1.75" width="0.127" layer="21"/>
 <circle x="20.32" y="20.32" radius="1.75" width="0.0254" layer="21"/>
 <pad name="11" x="21.59" y="13.97" drill="1" diameter="1.6764"/>
 <pad name="10" x="21.59" y="11.43" drill="1" diameter="1.6764"/>
@@ -617,34 +618,7 @@ DIN A4, landscape with extra doc field</description>
 <circle x="3.9878" y="16.9672" radius="0.567959375" width="0.127" layer="21"/>
 <circle x="17.6276" y="2.3368" radius="0.567959375" width="0.127" layer="21"/>
 <circle x="2.54" y="20.32" radius="1.79605" width="0.0254" layer="21"/>
-</package>
-<package name="BREAKOUT_ATTAMI_HEADERS-ONLY">
-<wire x1="0.635" y1="0" x2="1.905" y2="0" width="0.2032" layer="51"/>
-<pad name="1" x="1.27" y="1.27" drill="1" diameter="1.6764" rot="R180"/>
-<pad name="2" x="1.27" y="3.81" drill="1" diameter="1.6764" rot="R180"/>
-<pad name="3" x="1.27" y="6.35" drill="1" diameter="1.6764" rot="R180"/>
-<pad name="4" x="1.27" y="8.89" drill="1" diameter="1.6764" rot="R180"/>
-<pad name="5" x="1.27" y="11.43" drill="1" diameter="1.6764" rot="R180"/>
-<pad name="6" x="1.27" y="13.97" drill="1" diameter="1.6764" rot="R180"/>
-<pad name="7" x="1.27" y="16.51" drill="1" diameter="1.6764" rot="R180"/>
-<text x="7.6962" y="14.6812" size="0.8128" layer="25" ratio="18" rot="R180">&gt;NAME</text>
-<rectangle x1="1.016" y1="13.716" x2="1.524" y2="14.224" layer="51" rot="R90"/>
-<rectangle x1="1.016" y1="11.176" x2="1.524" y2="11.684" layer="51" rot="R90"/>
-<rectangle x1="1.016" y1="8.636" x2="1.524" y2="9.144" layer="51" rot="R90"/>
-<rectangle x1="1.016" y1="6.096" x2="1.524" y2="6.604" layer="51" rot="R90"/>
-<rectangle x1="1.016" y1="3.556" x2="1.524" y2="4.064" layer="51" rot="R90"/>
-<rectangle x1="1.016" y1="1.016" x2="1.524" y2="1.524" layer="51" rot="R90"/>
-<rectangle x1="1.016" y1="16.256" x2="1.524" y2="16.764" layer="51" rot="R90"/>
-<pad name="11" x="21.59" y="13.97" drill="1" diameter="1.6764"/>
-<pad name="10" x="21.59" y="11.43" drill="1" diameter="1.6764"/>
-<pad name="9" x="21.59" y="3.81" drill="1" diameter="1.6764"/>
-<pad name="8" x="21.59" y="1.27" drill="1" diameter="1.6764"/>
-<rectangle x1="21.336" y1="3.556" x2="21.844" y2="4.064" layer="51" rot="R270"/>
-<rectangle x1="21.336" y1="11.176" x2="21.844" y2="11.684" layer="51" rot="R270"/>
-<rectangle x1="21.336" y1="13.716" x2="21.844" y2="14.224" layer="51" rot="R270"/>
-<rectangle x1="21.336" y1="1.016" x2="21.844" y2="1.524" layer="51" rot="R270"/>
-<circle x="3.9878" y="16.9672" radius="0.567959375" width="0.127" layer="21"/>
-<circle x="17.6276" y="2.3368" radius="0.567959375" width="0.127" layer="21"/>
+<circle x="20.32" y="20.32" radius="1.79605" width="0.127" layer="21"/>
 </package>
 </packages>
 <symbols>
@@ -714,24 +688,24 @@ DIN A4, landscape with extra doc field</description>
 </polygon>
 </symbol>
 <symbol name="ATTAMI_BREAKOUT_SHEILD">
-<wire x1="0" y1="0" x2="0" y2="-40.64" width="0.254" layer="94"/>
-<wire x1="0" y1="-40.64" x2="33.02" y2="-40.64" width="0.254" layer="94"/>
-<wire x1="33.02" y1="-40.64" x2="33.02" y2="0" width="0.254" layer="94"/>
-<wire x1="33.02" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
-<pin name="GND" x="0" y="-7.62" length="middle" rot="R180"/>
-<pin name="PB0" x="0" y="-12.7" length="middle" rot="R180"/>
-<pin name="PB1" x="0" y="-17.78" length="middle" rot="R180"/>
-<pin name="PB2" x="0" y="-22.86" length="middle" rot="R180"/>
-<pin name="PB3" x="0" y="-27.94" length="middle" rot="R180"/>
-<pin name="PB4" x="0" y="-33.02" length="middle" rot="R180"/>
-<pin name="PB5" x="0" y="-38.1" length="middle" rot="R180"/>
-<pin name="V_BAT" x="33.02" y="-12.7" length="middle"/>
-<pin name="GND@1" x="33.02" y="-17.78" length="middle"/>
-<pin name="VCC" x="33.02" y="-33.02" length="middle"/>
-<pin name="GND@2" x="33.02" y="-38.1" length="middle"/>
-<text x="2.54" y="-2.54" size="1.27" layer="95">&gt;NAME</text>
-<circle x="5.08" y="-5.08" radius="2.54" width="0.254" layer="94"/>
-<circle x="27.94" y="-5.08" radius="2.54" width="0.254" layer="94"/>
+<wire x1="0" y1="0" x2="0" y2="-20.32" width="0.254" layer="94"/>
+<wire x1="0" y1="-20.32" x2="20.32" y2="-20.32" width="0.254" layer="94"/>
+<wire x1="20.32" y1="-20.32" x2="20.32" y2="0" width="0.254" layer="94"/>
+<wire x1="20.32" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
+<pin name="GND" x="0" y="-2.54" length="short" rot="R180"/>
+<pin name="PB0" x="0" y="-5.08" length="short" rot="R180"/>
+<pin name="PB1" x="0" y="-7.62" length="short" rot="R180"/>
+<pin name="PB2" x="0" y="-10.16" length="short" rot="R180"/>
+<pin name="PB3" x="0" y="-12.7" length="short" rot="R180"/>
+<pin name="PB4" x="0" y="-15.24" length="short" rot="R180"/>
+<pin name="PB5" x="0" y="-17.78" length="short" rot="R180"/>
+<pin name="V_BAT" x="20.32" y="-2.54" length="short"/>
+<pin name="GND@1" x="20.32" y="-5.08" length="short"/>
+<pin name="VCC" x="20.32" y="-15.24" length="short"/>
+<pin name="GND@2" x="20.32" y="-17.78" length="short"/>
+<text x="0" y="1.27" size="1.27" layer="95">&gt;NAME</text>
+<circle x="5.08" y="-2.54" radius="1.27" width="0.254" layer="94"/>
+<circle x="15.24" y="-2.54" radius="1.27" width="0.254" layer="94"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -819,31 +793,13 @@ Basic schematic elements and footprints for 0603, 1206, and PTH resistors.</desc
 </device>
 </devices>
 </deviceset>
-<deviceset name="ATTANI_BREAKOUT_PINS" prefix="-HEADERS" uservalue="yes">
+<deviceset name="ATTANI_BREAKOUT_PINS" uservalue="yes">
 <description>foorprint for the ATtami dev board</description>
 <gates>
 <gate name="G$1" symbol="ATTAMI_BREAKOUT_SHEILD" x="0" y="40.64"/>
 </gates>
 <devices>
 <device name="" package="BREAKOUT_ATTAMI">
-<connects>
-<connect gate="G$1" pin="GND" pad="1"/>
-<connect gate="G$1" pin="GND@1" pad="10"/>
-<connect gate="G$1" pin="GND@2" pad="8"/>
-<connect gate="G$1" pin="PB0" pad="2"/>
-<connect gate="G$1" pin="PB1" pad="3"/>
-<connect gate="G$1" pin="PB2" pad="4"/>
-<connect gate="G$1" pin="PB3" pad="5"/>
-<connect gate="G$1" pin="PB4" pad="6"/>
-<connect gate="G$1" pin="PB5" pad="7"/>
-<connect gate="G$1" pin="VCC" pad="9"/>
-<connect gate="G$1" pin="V_BAT" pad="11"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-<device name="NOHEAD" package="BREAKOUT_ATTAMI_HEADERS-ONLY">
 <connects>
 <connect gate="G$1" pin="GND" pad="1"/>
 <connect gate="G$1" pin="GND@1" pad="10"/>
@@ -1895,8 +1851,8 @@ We've spent an enormous amount of time creating and checking these footprints an
 <part name="P+2" library="microbuilder" deviceset="VCC" device=""/>
 <part name="P+3" library="microbuilder" deviceset="VCC" device=""/>
 <part name="SUPPLY11" library="supply2" deviceset="GND" device=""/>
-<part name="-HEADERS1" library="ATtami" deviceset="ATTANI_BREAKOUT_PINS" device="NOHEAD" value="ATTami"/>
-<part name="-HEADERS2" library="ATtami" deviceset="ATTANI_BREAKOUT_PINS" device="NOHEAD"/>
+<part name="-HEADERS1" library="ATtami" deviceset="ATTANI_BREAKOUT_PINS" device="" value="ATTami"/>
+<part name="-HEADERS2" library="ATtami" deviceset="ATTANI_BREAKOUT_PINS" device=""/>
 <part name="-HEADERS3" library="ATtami" deviceset="ATTANI_BREAKOUT_PINS" device=""/>
 <part name="R11" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="10K"/>
 <part name="R12" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="10K"/>
@@ -2009,8 +1965,8 @@ indicator</text>
 <instance part="SUPPLY2" gate="GND" x="-101.6" y="109.22" smashed="yes">
 <attribute name="VALUE" x="-101.473" y="109.855" size="1.778" layer="96"/>
 </instance>
-<instance part="U$5" gate="G$1" x="-160.02" y="43.18"/>
-<instance part="U$6" gate="G$1" x="-109.22" y="43.18"/>
+<instance part="U$5" gate="G$1" x="-154.94" y="25.4"/>
+<instance part="U$6" gate="G$1" x="-104.14" y="25.4"/>
 <instance part="R9" gate="G$1" x="-66.04" y="109.22" smashed="yes" rot="R270">
 <attribute name="NAME" x="-63.7794" y="111.252" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-64.008" y="106.68" size="1.778" layer="96"/>
@@ -2060,14 +2016,14 @@ indicator</text>
 <instance part="SUPPLY11" gate="GND" x="-307.34" y="99.06" smashed="yes">
 <attribute name="VALUE" x="-305.943" y="98.171" size="1.778" layer="96"/>
 </instance>
-<instance part="-HEADERS1" gate="G$1" x="-203.2" y="43.18" smashed="yes">
-<attribute name="NAME" x="-202.946" y="43.688" size="1.27" layer="95"/>
+<instance part="-HEADERS1" gate="G$1" x="-198.12" y="25.4" smashed="yes">
+<attribute name="NAME" x="-197.866" y="25.908" size="1.27" layer="95"/>
 </instance>
-<instance part="-HEADERS2" gate="G$1" x="-96.52" y="43.18" smashed="yes">
-<attribute name="NAME" x="-93.98" y="40.64" size="1.27" layer="95"/>
+<instance part="-HEADERS2" gate="G$1" x="-91.44" y="25.4" smashed="yes">
+<attribute name="NAME" x="-88.9" y="22.86" size="1.27" layer="95"/>
 </instance>
-<instance part="-HEADERS3" gate="G$1" x="-149.86" y="43.18" smashed="yes">
-<attribute name="NAME" x="-149.86" y="45.72" size="1.27" layer="95"/>
+<instance part="-HEADERS3" gate="G$1" x="-144.78" y="25.4" smashed="yes">
+<attribute name="NAME" x="-144.78" y="27.94" size="1.27" layer="95"/>
 </instance>
 <instance part="R11" gate="G$1" x="-200.66" y="111.76" smashed="yes" rot="R270">
 <attribute name="NAME" x="-199.4154" y="114.554" size="1.778" layer="95"/>
