@@ -1859,7 +1859,7 @@ We've spent an enormous amount of time creating and checking these footprints an
 <part name="SUPPLY13" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY14" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY15" library="supply2" deviceset="GND" device=""/>
-<part name="U$1" library="SparkFun-Electromechanical" deviceset="SWITCH_SPDT" device=""/>
+<part name="U5" library="SparkFun-Electromechanical" deviceset="SWITCH_SPDT" device=""/>
 <part name="P+2" library="microbuilder" deviceset="VCC" device=""/>
 <part name="SUPPLY16" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY17" library="supply2" deviceset="GND" device=""/>
@@ -2062,7 +2062,7 @@ programing LED</text>
 <instance part="SUPPLY15" gate="GND" x="-63.5" y="33.02" smashed="yes">
 <attribute name="VALUE" x="-69.469" y="33.147" size="1.778" layer="96"/>
 </instance>
-<instance part="U$1" gate="G$1" x="-144.78" y="121.92" smashed="yes">
+<instance part="U5" gate="G$1" x="-144.78" y="121.92" smashed="yes">
 <attribute name="NAME" x="-147.447" y="119.38" size="1.778" layer="95"/>
 </instance>
 <instance part="P+2" gate="VCC" x="-147.32" y="124.46"/>
@@ -2554,7 +2554,7 @@ programing LED</text>
 <wire x1="-299.72" y1="78.74" x2="-299.72" y2="76.2" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="P"/>
+<pinref part="U5" gate="G$1" pin="P"/>
 <pinref part="P+2" gate="VCC" pin="VCC"/>
 </segment>
 </net>
@@ -2687,7 +2687,7 @@ programing LED</text>
 <wire x1="-132.08" y1="111.76" x2="-132.08" y2="116.84" width="0.1524" layer="91"/>
 <pinref part="JP12" gate="A" pin="2"/>
 <wire x1="-132.08" y1="116.84" x2="-167.64" y2="116.84" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="S"/>
+<pinref part="U5" gate="G$1" pin="S"/>
 <wire x1="-139.7" y1="119.38" x2="-132.08" y2="119.38" width="0.1524" layer="91"/>
 <wire x1="-132.08" y1="119.38" x2="-132.08" y2="116.84" width="0.1524" layer="91"/>
 <junction x="-132.08" y="116.84"/>
