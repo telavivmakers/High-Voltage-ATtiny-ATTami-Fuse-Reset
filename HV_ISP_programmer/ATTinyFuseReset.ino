@@ -1,4 +1,4 @@
-#include <TimerOne.h>
+//#include <TimerOne.h>
 // AVR High-voltage Serial Fuse Reprogrammer with 12 Volt Charge Pump
 // Adapted from code and design by Wayne Holder Nov 27, 2010
 //	https://sites.google.com/site/wayneholder/attiny-fuse-reset-with-12-volt-charge-pump
@@ -8,11 +8,6 @@
 // Fuse Calc:
 //   http://www.engbedded.com/fusecalc/
 
-#define  SCI		9    // D9, Target Clock
-#define  SDO		13   // D13, Target Data Output
-#define  SII		12   // D12, Target Instruction Input
-#define  SDI		11   // D11,  Target Data Input
-#define  ATtiny_VCC	8    // D8,  Target VCC
 
 #define  HFUSE  0x747C
 #define  LFUSE  0x646C
@@ -31,108 +26,104 @@
 #define P1		0x04	// Pin D2
 #define P2		0x08	// Pin D3
 #define Pump_VCC	0x10	// Pin D4
-#define HV_off		0x20	// Pin D5
+#define HV_off		0x20	// Pin D5, this pin also reffers to as reset on "ArduinoISP_ATTami" file
 #define REF		330		//calibrated reference to achieve High Voltage of 11.5 volts
 
 // Variables used by Charge pump
 volatile char phase = 0;
 volatile char onOff = 0;
 volatile char pwrOn = 0;
-
-void ticker () {
+boolean T;
+void ticker() {
   if (onOff) {
-    DDRD = P1 | P2 | Pump_VCC | HV_off;
+    DDRD |= P1 | P2 | Pump_VCC | HV_off;
+    PORTD &= ~HV_off;
     int volts = analogRead(A0);
     if (volts < REF) {
       if (phase) {
-        PORTD = P1 | Pump_VCC;
+        PORTD &= ~P2;
+        PORTD |= P1 | Pump_VCC;
       } 
       else {
-        PORTD = P2 | Pump_VCC;
+        PORTD &= ~P1;
+        PORTD |= P2 | Pump_VCC;
       }
       phase ^= 1;
     } 
     else {
-      pwrOn = 1;
+      pwrOn =1;
     }
   } 
   else {
     pwrOn = 0;
-    DDRD = HV_off;
-    PORTD = HV_off;
+    DDRD |= HV_off;
+    PORTD |= HV_off;
+    PORTD &= ~(P1 | P2 | Pump_VCC);
   }
+  T = ~T;
+  digitalWrite (A1, T);
 }
 
-void setup() {
-  pinMode(ATtiny_VCC, OUTPUT);
-  pinMode(SDI, OUTPUT);
-  pinMode(SII, OUTPUT);
-  pinMode(SCI, OUTPUT);
-  pinMode(SDO, OUTPUT);     // Configured as input when in programming mode
-  Serial.begin(57600);
-  // Setup timer interrupt for  charge pump
-  analogReference(DEFAULT);
-  Timer1.initialize(500);
-  Timer1.attachInterrupt(ticker);
-}
 
-void loop() {
+void HVloop() {
   Serial.println();
   Serial.println("Insert one (only one!) out of the following components into the appropriate socket:");
   Serial.println("ATTami board or ATtiny13 MCU or ATTiny24 MCU or ATTiny44 MCU or ATTiny84 MCU or ATTiny25 MCU or ATTiny45 MCU or ATTiny85 MCU");
-  Serial.println("Push RNTER to run");
+  Serial.println("Push ENTER to run");
   Serial.println("");
-  while (Serial.available() == 0);
-  while (Serial.available() >0) Serial.read();
-  pinMode(SDO, OUTPUT);     // Set SDO to output
-  digitalWrite(SDI, LOW);
-  digitalWrite(SII, LOW);
-  digitalWrite(SDO, LOW);
-  onOff = 0;                // 12v Off
-  digitalWrite(ATtiny_VCC, HIGH);  // Target Vcc On
-  delayMicroseconds(20);
-  onOff = 1;                // 12v On
-  while (pwrOn == 0)
-    ;
-  delayMicroseconds(10);
-  pinMode(SDO, INPUT);      // Set SDO to input
-  delayMicroseconds(300);
-  unsigned int sig = readSignature();
-  Serial.print("Signature is: ");
-  Serial.print(sig, HEX);
-  Serial.print(", the programmed AVR is: ");
-  if (sig == ATTINY13) Serial.println("ATTiny13");
-  if (sig == ATTINY24) Serial.println("ATTiny24");
-  if (sig == ATTINY25) Serial.println("ATTiny25");
-  if (sig == ATTINY44) Serial.println("ATTiny44");
-  if (sig == ATTINY45) Serial.println("ATTiny45");
-  if (sig == ATTINY84) Serial.println("ATTiny84");
-  if (sig == ATTINY85) Serial.println("ATTiny85");
-  Serial.print("Previous fuses setting was: ");
-  readFuses();
-  if (sig == ATTINY13) {
-    writeFuse(LFUSE, 0x6A);
-    writeFuse(HFUSE, 0xFF);
-  } 
-  else if (sig == ATTINY24 || sig == ATTINY44 || sig == ATTINY84 ||
-    sig == ATTINY25 || sig == ATTINY45 || sig == ATTINY85) {
-    writeFuse(LFUSE, 0x62);
-    writeFuse(HFUSE, 0xDF);
-    writeFuse(EFUSE, 0xFF);
-  }
-  Serial.print("Current fuses setting is:   ");
-  readFuses();
-  digitalWrite(SCI, LOW);
-  digitalWrite(ATtiny_VCC, LOW);    // Target Vcc Off
-  onOff = 0;                 // 12v Off
-  Serial.println("Done");
+  while (Serial.available() == 0 && !digitalRead(HV_ISP_select));
+  if(!digitalRead(HV_ISP_select))
+  {
+    while (Serial.available() >0) Serial.read();
+    pinMode(SDO, OUTPUT);     // Set SDO to output
+    digitalWrite(SDI, LOW);
+    digitalWrite(SII, LOW);
+    digitalWrite(SDO, LOW);
+    digitalWrite(ATtiny_VCC, HIGH);  // Target Vcc On
+    delayMicroseconds(20);
+    onOff = 1;                // 12v On
+    while (pwrOn == 0){
+    }
+    delayMicroseconds(10);
+    pinMode(SDO, INPUT);      // Set SDO to input
+    delayMicroseconds(300);
+    unsigned int sig = readSignature();
+    Serial.print("Signature is: ");
+    Serial.print(sig, HEX);
+    Serial.print(", the programmed AVR is: ");
+    if (sig == ATTINY13) Serial.println("ATTiny13");
+    if (sig == ATTINY24) Serial.println("ATTiny24");
+    if (sig == ATTINY25) Serial.println("ATTiny25");
+    if (sig == ATTINY44) Serial.println("ATTiny44");
+    if (sig == ATTINY45) Serial.println("ATTiny45");
+    if (sig == ATTINY84) Serial.println("ATTiny84");
+    if (sig == ATTINY85) Serial.println("ATTiny85");
+    Serial.print("Previous fuses setting was: ");
+    readFuses();
+    if (sig == ATTINY13) {
+      writeFuse(LFUSE, 0x6A);
+      writeFuse(HFUSE, 0xFF);
+    } 
+    else if (sig == ATTINY24 || sig == ATTINY44 || sig == ATTINY84 ||
+      sig == ATTINY25 || sig == ATTINY45 || sig == ATTINY85) {
+      writeFuse(LFUSE, 0x62);
+      writeFuse(HFUSE, 0xDF);
+      writeFuse(EFUSE, 0xFF);
+    }
+    Serial.print("Current fuses setting is:   ");
+    readFuses();
+    digitalWrite(SCI, LOW);
+    digitalWrite(ATtiny_VCC, LOW);    // Target Vcc Off
+    onOff = 0;                 // 12v Off
+    Serial.println("Done");
+  }  
+  else Serial.println("Going into ISP mode");
 }
 
 byte shiftOut (byte val1, byte val2) {
   int inBits = 0;
   //Wait until SDO goes high
-  while (!digitalRead(SDO))
-    ;
+  while (!digitalRead(SDO));
   unsigned int dout = (unsigned int) val1 << 2;
   unsigned int iout = (unsigned int) val2 << 2;
   for (int ii = 10; ii >= 0; ii--)  {
@@ -184,5 +175,3 @@ unsigned int readSignature () {
   }
   return sig;
 }
-
-

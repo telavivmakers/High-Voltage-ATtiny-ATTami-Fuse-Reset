@@ -44,12 +44,7 @@
 // - More information at http://code.google.com/p/mega-isp
 
 #include "pins_arduino.h"
-#define RESET     5
-#define ATTiny_VCC 8 //target VCC
 
-#define LED_HB    A3//was 9 in the original design. As for now I'm not using the LEDs in the shield
-#define LED_ERR   A4//was 8 in the original design.
-#define LED_PMODE A5//was 7 in the original design.
 #define PROG_FLICKER true
 
 #define HWVER 2
@@ -63,22 +58,6 @@
 #define STK_INSYNC  0x14
 #define STK_NOSYNC  0x15
 #define CRC_EOP     0x20 //ok it is a space...
-
-void pulse(int pin, int times);
-
-void setup() {
-  Serial.begin(19200);
-  pinMode(10, OUTPUT); // Ensures that the built in ATMEGA328 SPI SS would not read the pin as LOW
-  digitalWrite(10, HIGH);
-  pinMode(ATTiny_VCC, OUTPUT);
-  digitalWrite (ATTiny_VCC, HIGH);
-  pinMode(LED_PMODE, OUTPUT);
-  pulse(LED_PMODE, 2);
-  pinMode(LED_ERR, OUTPUT);
-  pulse(LED_ERR, 2);
-  pinMode(LED_HB, OUTPUT);
-  pulse(LED_HB, 2);
-}
 
 int error=0;
 int pmode=0;
@@ -118,18 +97,20 @@ void heartbeat() {
 }
 
 
-void loop(void) {
-  // is pmode active?
-  if (pmode) digitalWrite(LED_PMODE, HIGH); 
-  else digitalWrite(LED_PMODE, LOW);
-  // is there an error?
-  if (error) digitalWrite(LED_ERR, HIGH); 
-  else digitalWrite(LED_ERR, LOW);
+void ISPloop(void) {
+  while (digitalRead(HV_ISP_select)){
+    // is pmode active?
+    if (pmode) digitalWrite(LED_PMODE, HIGH); 
+    else digitalWrite(LED_PMODE, LOW);
+    // is there an error?
+    if (error) digitalWrite(LED_ERR, HIGH); 
+    else digitalWrite(LED_ERR, LOW);
 
-  // light the heartbeat LED
-  heartbeat();
-  if (Serial.available()) {
-    avrisp();
+    // light the heartbeat LED
+    heartbeat();
+    if (Serial.available()) {
+      avrisp();
+    }
   }
 }
 
@@ -259,13 +240,12 @@ void set_parameters() {
 void start_pmode() {
   spi_init();
   // following delays may not work on all targets...
-  pinMode(RESET, OUTPUT);
-//  digitalWrite(RESET, HIGH); //original
+  //  digitalWrite(RESET, HIGH); //original
   digitalWrite(RESET, LOW); //modified
   pinMode(SCK, OUTPUT);
   digitalWrite(SCK, LOW);
   delay(50);
-//  digitalWrite(RESET, LOW); //original
+  //  digitalWrite(RESET, LOW); //original
   digitalWrite(RESET, HIGH); //modified
   delay(50);
   pinMode(MISO, INPUT);
@@ -278,7 +258,7 @@ void end_pmode() {
   pinMode(MISO, INPUT);
   pinMode(MOSI, INPUT);
   pinMode(SCK, INPUT);
-  pinMode(RESET, INPUT);
+//  pinMode(RESET, INPUT); //original
   pmode = 0;
 }
 
@@ -556,6 +536,3 @@ int avrisp() {
       Serial.print((char)STK_NOSYNC);
   }
 }
-
-
-
