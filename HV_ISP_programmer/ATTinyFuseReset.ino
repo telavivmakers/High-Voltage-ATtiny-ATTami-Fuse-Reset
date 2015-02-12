@@ -1,4 +1,3 @@
-//#include <TimerOne.h>
 // AVR High-voltage Serial Fuse Reprogrammer with 12 Volt Charge Pump
 // Adapted from code and design by Wayne Holder Nov 27, 2010
 //	https://sites.google.com/site/wayneholder/attiny-fuse-reset-with-12-volt-charge-pump
@@ -7,7 +6,6 @@
 //
 // Fuse Calc:
 //   http://www.engbedded.com/fusecalc/
-
 
 #define  HFUSE  0x747C
 #define  LFUSE  0x646C
@@ -33,12 +31,12 @@
 volatile char phase = 0;
 volatile char onOff = 0;
 volatile char pwrOn = 0;
-boolean T;
+
 void ticker() {
   if (onOff) {
     DDRD |= P1 | P2 | Pump_VCC | HV_off;
     PORTD &= ~HV_off;
-    int volts = analogRead(A0);
+    int volts = analogRead(HV_sense);
     if (volts < REF) {
       if (phase) {
         PORTD &= ~P2;
@@ -60,10 +58,7 @@ void ticker() {
     PORTD |= HV_off;
     PORTD &= ~(P1 | P2 | Pump_VCC);
   }
-  T = ~T;
-  digitalWrite (A1, T);
 }
-
 
 void HVloop() {
   Serial.println();
@@ -71,9 +66,8 @@ void HVloop() {
   Serial.println("ATTami board or ATtiny13 MCU or ATTiny24 MCU or ATTiny44 MCU or ATTiny84 MCU or ATTiny25 MCU or ATTiny45 MCU or ATTiny85 MCU");
   Serial.println("Push ENTER to run");
   Serial.println("");
-  while (Serial.available() == 0 && !digitalRead(HV_ISP_select));
-  if(!digitalRead(HV_ISP_select))
-  {
+  while ((Serial.available() == 0) && (switches_new == (PINC & B00000111)));
+  if (switches_new == (PINC & B00000111))  {
     while (Serial.available() >0) Serial.read();
     pinMode(SDO, OUTPUT);     // Set SDO to output
     digitalWrite(SDI, LOW);

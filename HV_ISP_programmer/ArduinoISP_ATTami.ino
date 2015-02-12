@@ -96,9 +96,8 @@ void heartbeat() {
   delay(20);
 }
 
-
 void ISPloop(void) {
-  while (digitalRead(HV_ISP_select)){
+  while (switches_new == (PINC & B00000111)){
     // is pmode active?
     if (pmode) digitalWrite(LED_PMODE, HIGH); 
     else digitalWrite(LED_PMODE, LOW);
@@ -234,10 +233,10 @@ void set_parameters() {
     + buff[17] * 0x00010000
     + buff[18] * 0x00000100
     + buff[19];
-
 }
 
 void start_pmode() {
+  digitalWrite (ATtiny_VCC, HIGH);
   spi_init();
   // following delays may not work on all targets...
   //  digitalWrite(RESET, HIGH); //original
@@ -258,7 +257,8 @@ void end_pmode() {
   pinMode(MISO, INPUT);
   pinMode(MOSI, INPUT);
   pinMode(SCK, INPUT);
-//  pinMode(RESET, INPUT); //original
+  //  pinMode(RESET, INPUT); //original
+  digitalWrite (ATtiny_VCC, LOW);
   pmode = 0;
 }
 
@@ -294,7 +294,6 @@ int current_page(int addr) {
   if (param.pagesize == 256) return here & 0xFFFFFF80;
   return here;
 }
-
 
 void write_flash(int length) {
   fill(length);
@@ -447,10 +446,6 @@ void read_signature() {
 }
 //////////////////////////////////////////
 //////////////////////////////////////////
-
-
-////////////////////////////////////
-////////////////////////////////////
 int avrisp() { 
   uint8_t data, low, high;
   uint8_t ch = getch();
