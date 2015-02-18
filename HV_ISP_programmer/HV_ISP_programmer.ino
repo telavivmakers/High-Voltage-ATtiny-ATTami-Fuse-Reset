@@ -1,18 +1,18 @@
 #include <TimerOne.h>
 
-#define ATtiny_VCC	8		//target VCC
+#define ATtiny_VCC      8		//target VCC
 #define LED_HB		6		//Yellow LED, was 9 in the original design. As for now I'm not using the LEDs in the shield
-#define HV_ISP_select A0	//HV ISP toggle switch
-#define ATTami_test A1		//check if ATTami test push button is pressed.
-#define ATTami_bootloader A2 //check if ATTami load bootloader push button is pressed.
+#define HV_ISP_select   A0	        //HV ISP toggle switch
+#define ATTami_test     A1		//check if ATTami test push button is pressed.
+#define ATTami_bootloader A2            //check if ATTami load bootloader push button is pressed.
 #define HV_sense	A3		// Analog read of a sample of the 11.5V produced by the charge pump circuit
 #define LED_PMODE	A4		//Green LED, was 7 in the original design.
 #define LED_ERR		A5		//Red LED, was 8 in the original design.
 #define RESET		5		// pin 5 is also reffered to as HV_off in "ATTinyFuseReset" file
-#define SCI			9		// D9, Target Clock
-#define SDO			13		// D13, Target Data Output
-#define SII			12		// D12, Target Instruction Input
-#define SDI			11		// D11,  Target Data Input
+#define SCI		9		// D9, Target Clock
+#define SDO		13		// D13, Target Data Output
+#define SII		12		// D12, Target Instruction Input
+#define SDI		11		// D11,  Target Data Input
 
 byte switches_old; //keeps the old position of HV_ISP_select, ATTami_test and ATTami_bootloader switches
 byte switches_new; //keeps the new position of HV_ISP_select, ATTami_test and ATTami_bootloader switches
@@ -48,7 +48,6 @@ void loop(){
     switches_old = switches_new;
     delay (1);
   }
-
   if ((switches_new & B00000110) == B00000110){ // no push button is pressed
     if (switches_new & B00000001) { // ISP mode
       TIMSK1 &= ~1<<TOIE1; //disable 12V pump, see: ticker() function in "ATTinyFuseReset" file
@@ -58,6 +57,10 @@ void loop(){
       pulse(LED_HB, 2);
       pulse(LED_PMODE, 2);
       pulse(LED_ERR, 2);
+      Serial.println("\nGoing into ISP mode");
+      Serial.println("Under Tools/Board menu choose the appropriate ATTiny device");
+      Serial.println("Under Tools/Programmer menu choose Arduino as ISP");
+      Serial.println("and Upload your sketch");
       ISPloop();
     }
     else { // HV mode
@@ -69,10 +72,15 @@ void loop(){
   }
   else{ // one of the push buttons is pressed
     TIMSK1 &= ~1<<TOIE1; //disable 12V pump, see: ticker() function in "ATTinyFuseReset" file
-    if (switches_new & B00000010) ATTami_test_mode(); //ATTAmi test
-    else if (switches_new & B00000100) ATTami_load_bootloader(); //ATTAmi load bootloader
+    if (switches_new & B00000010){    //ATTAmi test
+      Serial.println("\nGoing into ATTiny test mode");
+      ATTami_test_mode(); 
+    }
+    else if (switches_new & B00000100){ //ATTAmi load bootloader
+      Serial.println("ATTami load bootloader");
+     ATTami_load_bootloader();
+    }
   }
-
 } 
 
 void ATTami_test_mode(){
@@ -87,3 +95,5 @@ void ATTami_test_mode(){
 
 void ATTami_load_bootloader(){
 }
+
+

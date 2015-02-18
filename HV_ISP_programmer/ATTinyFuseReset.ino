@@ -7,9 +7,29 @@
 // Fuse Calc:
 //   http://www.engbedded.com/fusecalc/
 
+#include <EEPROM.h>
+//eeprom addresses to store predefined fuses values
+#define LFuse 0
+#define HFuse 1
+#define EFuse 2
+
+// Probably the addresses of the fuses in ATTiny's memories. could not find any reference for that.
 #define  HFUSE  0x747C
 #define  LFUSE  0x646C
 #define  EFUSE  0x666E
+
+//default fuses settings for ATTiny13 devices
+#define FD_ATTiny13_Lfuse 0x6A
+#define FD_ATTiny13_Hfuse 0xFF
+//default fuses settings for ATTiny24, ATTiny25, ATTiny44, ATTiny45, ATTiny84, ATTiny85 devices
+#define FD_ATTiny_Lfuse 0x62
+#define FD_ATTiny_Hfuse 0xDF
+#define FD_ATTiny_Efuse 0xFF
+
+
+
+
+
 
 // Define ATTiny series signatures
 #define  ATTINY13   0x9007  // L: 0x6A, H: 0xFF             8 pin
@@ -31,6 +51,17 @@
 volatile char phase = 0;
 volatile char onOff = 0;
 volatile char pwrOn = 0;
+
+unsigned int sig;
+
+char Alpha;
+boolean timeout = LOW;
+//temporary, used in the process of reading new predefined EEPROM fuses values
+int digit1;
+int digit2;
+byte lfuse;
+byte hfuse;
+byte efuse;
 
 void ticker() {
   if (onOff) {
@@ -61,63 +92,285 @@ void ticker() {
 }
 
 void HVloop() {
-  Serial.println();
-  Serial.println("Insert one (only one!) out of the following components into the appropriate socket:");
-  Serial.println("ATTami board or ATtiny13 MCU or ATTiny24 MCU or ATTiny44 MCU or ATTiny84 MCU or ATTiny25 MCU or ATTiny45 MCU or ATTiny85 MCU");
-  Serial.println("Push ENTER to run");
-  Serial.println("");
-  while ((Serial.available() == 0) && (switches_new == (PINC & B00000111)));
-  if (switches_new == (PINC & B00000111))  {
-    while (Serial.available() >0) Serial.read();
-    pinMode(SDO, OUTPUT);     // Set SDO to output
-    digitalWrite(SDI, LOW);
-    digitalWrite(SII, LOW);
-    digitalWrite(SDO, LOW);
-    digitalWrite(ATtiny_VCC, HIGH);  // Target Vcc On
-    delayMicroseconds(20);
-    onOff = 1;                // 12v On
-    while (pwrOn == 0){
-    }
-    delayMicroseconds(10);
-    pinMode(SDO, INPUT);      // Set SDO to input
-    delayMicroseconds(300);
-    unsigned int sig = readSignature();
-    Serial.print("Signature is: ");
-    Serial.print(sig, HEX);
-    Serial.print(", the programmed AVR is: ");
-    if (sig == ATTINY13) Serial.println("ATTiny13");
-    if (sig == ATTINY24) Serial.println("ATTiny24");
-    if (sig == ATTINY25) Serial.println("ATTiny25");
-    if (sig == ATTINY44) Serial.println("ATTiny44");
-    if (sig == ATTINY45) Serial.println("ATTiny45");
-    if (sig == ATTINY84) Serial.println("ATTiny84");
-    if (sig == ATTINY85) Serial.println("ATTiny85");
-    Serial.print("Previous fuses setting was: ");
-    readFuses();
-    if (sig == ATTINY13) {
-      writeFuse(LFUSE, 0x6A);
-      writeFuse(HFUSE, 0xFF);
-    } 
-    else if (sig == ATTINY24 || sig == ATTINY44 || sig == ATTINY84 ||
-      sig == ATTINY25 || sig == ATTINY45 || sig == ATTINY85) {
-      writeFuse(LFUSE, 0x62);
-      writeFuse(HFUSE, 0xDF);
-      writeFuse(EFUSE, 0xFF);
-    }
-    Serial.print("Current fuses setting is:   ");
-    readFuses();
+  while (switches_new == (PINC & B00000111)){
+    build_HV();
+    //Read and Print device Signature
+    Serial.println("\n\t\tChecking for MCU presence");
+    sig = readSignature();
+    //Turn off HV 
     digitalWrite(SCI, LOW);
     digitalWrite(ATtiny_VCC, LOW);    // Target Vcc Off
-    onOff = 0;                 // 12v Off
-    Serial.println("Done");
-  }  
-  else Serial.println("Going into ISP mode");
+    onOff = 0;                 // 12v Off  //Print Beggining Message
+    if (timeout == LOW){
+      Serial.print("\t\tFound: ");
+      if (sig == ATTINY13) Serial.print("ATTiny13");
+      if (sig == ATTINY24) Serial.print("ATTiny24");
+      if (sig == ATTINY25) Serial.print("ATTiny25");
+      if (sig == ATTINY44) Serial.print("ATTiny44");
+      if (sig == ATTINY45) Serial.print("ATTiny45");
+      if (sig == ATTINY84) Serial.print("ATTiny84");
+      if (sig == ATTINY85) Serial.print("ATTiny85");
+      Serial.print (", Signature is: ");
+      Serial.println(sig, HEX);
+      Serial.println();
+      Serial.println("\t\tMCU power is down. You may safely replace the MCU.");
+      Serial.println("\t\tType ENTER if the MCU was replaced.");
+      Serial.println("\tor");
+      Serial.print("\tType 1 to reset the MCU fuses to factory default:");
+      if (sig == ATTINY13) {
+        Serial.print("\tLFUSE, 0x");
+        Serial.print(FD_ATTiny13_Lfuse,HEX);
+        Serial.print("\tHFUSE, 0x");
+        Serial.println(FD_ATTiny13_Hfuse,HEX);
+      }
+      else if (sig == ATTINY24 || sig == ATTINY44 || sig == ATTINY84 || sig == ATTINY25 || sig == ATTINY45 || sig == ATTINY85){
+        Serial.print("\tLFUSE, 0x");
+        Serial.print(FD_ATTiny_Lfuse,HEX);
+        Serial.print("\tHFUSE, 0x");
+        Serial.print(FD_ATTiny_Hfuse,HEX);
+        Serial.print("\tLFUSE, 0x");
+        Serial.println(FD_ATTiny_Efuse,HEX);
+      }
+      Serial.print("\tType 2 to burn the MCU fuses to predefined values:");
+      Serial.print("\tLFUSE, 0x");
+      Serial.print(EEPROM.read(LFuse),HEX);
+      Serial.print("\tHFUSE, 0x");
+      Serial.print(EEPROM.read(HFuse),HEX);
+      if (sig == ATTINY24 || sig == ATTINY44 || sig == ATTINY84 || sig == ATTINY25 || sig == ATTINY45 || sig == ATTINY85){
+        Serial.print("\tEFUSE, 0x");
+        Serial.print(EEPROM.read(EFuse),HEX);
+      }
+      Serial.println();
+      Serial.println("\tType 3 to store new predefined values");
+      Serial.println();
+      Serial.println("open http://www.engbedded.com/fusecalc/ for Atmel AVR® Fuse Calculator");
+      while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
+      delay(1);
+      Alpha = Serial.read();
+      delay(1);
+      while (Serial.available() >0) {
+        delay(1);
+        Serial.read();
+        delay(1);
+      }
+      if (Alpha == '1'){
+        if (switches_new == (PINC & B00000111))  {
+          build_HV();
+          //Read and Print current fuses setting
+          Serial.print("\t\tPrevious fuses setting was: ");
+          readFuses();
+          //Burn new fuses setting
+          Serial.print("\t1. before write ");
+          Serial.println(sig,HEX);
+          if (sig == ATTINY13) {
+            writeFuse(LFUSE, FD_ATTiny13_Lfuse);
+            writeFuse(HFUSE, FD_ATTiny13_Hfuse);
+          } 
+          else if (sig == ATTINY24 || sig == ATTINY44 || sig == ATTINY84 || sig == ATTINY25 || sig == ATTINY45 || sig == ATTINY85) {
+            writeFuse(LFUSE, FD_ATTiny_Lfuse);
+            writeFuse(HFUSE, FD_ATTiny_Hfuse);
+            writeFuse(EFUSE, FD_ATTiny_Efuse);
+          }
+          Serial.print("\t1. after write ");
+          Serial.println(sig,HEX);
+          Serial.print("\t\tCurrent fuses setting is:   ");
+          readFuses();
+          //Turn off HV 
+          digitalWrite(SCI, LOW);
+          digitalWrite(ATtiny_VCC, LOW);    // Target Vcc Off
+          onOff = 0;                 // 12v Off
+          Serial.println("\n\t\t\t\t\tDone\n\n");
+        }
+      } 
+      else if (Alpha == '2'){
+        if (switches_new == (PINC & B00000111)) {
+          build_HV();
+          //Read and Print current fuses setting
+          Serial.print("\t\tPrevious fuses setting was: ");
+          readFuses();
+          //Burn new fuses setting
+          Serial.print("\t2. before write ");
+          Serial.println(sig,HEX);
+          if (sig == ATTINY13) {
+            writeFuse(LFUSE, EEPROM.read(LFuse));
+            writeFuse(HFUSE, EEPROM.read(HFuse));
+          } 
+          else if (sig == ATTINY24 || sig == ATTINY44 || sig == ATTINY84 || sig == ATTINY25 || sig == ATTINY45 || sig == ATTINY85) {
+            writeFuse(LFUSE, EEPROM.read(LFuse));
+            writeFuse(HFUSE, EEPROM.read(HFuse));
+            writeFuse(EFUSE, EEPROM.read(EFuse));
+          }
+          Serial.print("\t2. after write ");
+          Serial.println(sig,HEX);
+          Serial.print("\t\tCurrent fuses setting is:   ");
+          readFuses();
+          //Turn off HV 
+          digitalWrite(SCI, LOW);
+          digitalWrite(ATtiny_VCC, LOW);    // Target Vcc Off
+          onOff = 0;                 // 12v Off
+          Serial.println("\n\t\t\t\t\tDone\n\n");
+
+          while (Serial.available() >0) {
+            delay(1);
+            Serial.read();
+            delay(1);
+          }
+        }
+      }
+      else if (Alpha == '3'){
+        while (get_fuses_values() == -1) {
+          delay(1);
+          Serial.println("\tERROR: you should enter exatly two capital HEX digits for each fuse, try again.");
+          Serial.println();
+          while (Serial.available() >0) {
+            delay(1);
+            Serial.read();
+            delay(1);
+          }         
+        }
+        EEPROM.write(LFuse, lfuse);
+        EEPROM.write(HFuse, hfuse);
+        EEPROM.write(EFuse, efuse);
+      }
+    } 
+    else { //no MCU found
+      Serial.println("\t\tNo MCU is inserted!");
+      Serial.println();
+      Serial.println("Insert one (only one!) out of the following components into the appropriate socket:");
+      Serial.println("ATTami board or ATtiny13 MCU or ATTiny24 MCU or ATTiny44 MCU or ATTiny84 MCU or ATTiny25 MCU or ATTiny45 MCU or ATTiny85 MCU");
+      Serial.println("Push ENTER to run");
+      Serial.println("");
+      while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
+      while (Serial.available() >0) {
+        delay(1);
+        Serial.read();
+        delay(1);
+      }
+    }
+  }
+}
+
+int get_fuses_values(){
+
+  Serial.println("\tEnter the LFuse value (two HEX digits)");
+  while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
+  delay(1);
+  digit1 = Serial.read();
+  delay(1);
+  if (digit1 >= 'A' && digit1 <= 'F') digit1 = (digit1 - 'A'+10) << 4;
+  else if (digit1 >= '0' && digit1 <= '9') digit1 = (digit1 - '0') << 4;
+  else {
+    Serial.print("Lfuse digit1\t");
+    Serial.println(char(digit1));
+    return -1;//input error
+  }
+  digit2 = Serial.read();
+  if (digit2 >= 'A' && digit2 <= 'F') digit2 = digit2 - 'A' + 10;
+  else if (digit2 >= '0' && digit2 <= '9') digit2 = digit2 - '0';
+  else {
+    Serial.print("Lfuse digit2\t");
+    Serial.println(char(digit2));
+    return -1;//input error
+  }
+  lfuse = digit1 | digit2;
+  Serial.print("\t0x");
+  Serial.println(lfuse,HEX);
+  while (Serial.available() >0) {
+    delay(1);
+    Serial.read();
+    delay(1);
+  } 
+
+  Serial.println("\tEnter the HFuse value (two HEX digits)");
+  while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
+  digit1 = Serial.read();
+  delay(1);
+  if (digit1 >= 'A' && digit1 <= 'F') digit1 = (digit1 - 'A'+10) << 4;
+  else if (digit1 >= '0' && digit1 <= '9') digit1 = (digit1 - '0') << 4;
+  else {
+    Serial.print("Hfuse digit1\t");
+    Serial.println(char(digit1));
+    return -1;//input error
+  }
+  digit2 = Serial.read();
+  if (digit2 >= 'A' && digit2 <= 'F') digit2 = digit2 - 'A' + 10;
+  else if (digit2 >= '0' && digit2 <= '9') digit2 = digit2 - '0';
+  else {
+    Serial.print("Hfuse digit2\t");
+    Serial.println(char(digit2));
+    return -1;//input error
+  }
+  hfuse = digit1 | digit2;
+  Serial.print("\t0x");
+  Serial.println(hfuse,HEX);
+  while (Serial.available() >0) {
+    delay(1);
+    Serial.read();
+    delay(1);
+  }
+
+  if (sig |= ATTINY13){  
+    Serial.println("\tEnter the EFuse value (two HEX digits)");
+    while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
+    digit1 = Serial.read();
+    delay(1);
+    if (digit1 >= 'A' && digit1 <= 'F') digit1 = (digit1 - 'A'+10) << 4;
+    else if (digit1 >= '0' && digit1 <= '9') digit1 = (digit1 - '0') << 4;
+    else {
+      Serial.print("Efuse digit1\t");
+      Serial.println(char(digit1));
+      return -1;//input error
+    }    
+    digit2 = Serial.read();
+    if (digit2 >= 'A' && digit2 <= 'F') digit2 = digit2 - 'A' + 10;
+    else if (digit2 >= '0' && digit2 <= '9') digit2 = digit2 - '0';
+    else {
+      Serial.print("Efuse digit2\t");
+      Serial.println(char(digit2));
+      return -1;//input error
+    }
+    efuse = digit1 | digit2;
+    Serial.print("\t0x");
+    Serial.println(efuse,HEX);
+
+    while (Serial.available() >0) {
+      delay(1);
+      Serial.read();
+      delay(1);
+    }
+  }
+
+  return 0;
+}
+
+//Prepare The circuit for HV operation
+void build_HV(){
+  pinMode(SDO, OUTPUT);     // Set SDO to output
+  digitalWrite(SDI, LOW);
+  digitalWrite(SII, LOW);
+  digitalWrite(SDO, LOW);
+  digitalWrite(ATtiny_VCC, HIGH);  // Target Vcc On
+  delayMicroseconds(20);
+  onOff = 1;                // 12v On
+  while (pwrOn == 0){
+  }
+  delayMicroseconds(10);
+  pinMode(SDO, INPUT);      // Set SDO to input
+  delayMicroseconds(300);
 }
 
 byte shiftOut (byte val1, byte val2) {
+  int timecount = millis();
   int inBits = 0;
+  timeout =LOW; // signifies that MCU was found within the timeout limit and the signatue was read
   //Wait until SDO goes high
-  while (!digitalRead(SDO));
+  while (!digitalRead(SDO)){
+    if (millis() - timecount > 2000){ // wait timeout time for the MCU to respond
+      timeout = HIGH; // timeout elapsed
+      break;
+    }
+  }
+  if (timeout == HIGH) return 0xFFFF; // timeout elapsed, there is no MCU in the sockets
   unsigned int dout = (unsigned int) val1 << 2;
   unsigned int iout = (unsigned int) val2 << 2;
   for (int ii = 10; ii >= 0; ii--)  {
@@ -157,7 +410,7 @@ void readFuses () {
   Serial.println(val, HEX);
 }
 
-unsigned int readSignature () {
+int readSignature () {
   unsigned int sig = 0;
   byte val;
   for (int ii = 1; ii < 3; ii++) {
@@ -169,3 +422,20 @@ unsigned int readSignature () {
   }
   return sig;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
