@@ -13,10 +13,11 @@
 #define HFuse 1
 #define EFuse 2
 
-// Probably the addresses of the fuses in ATTiny's memories. could not find any reference for that.
-#define  HFUSE  0x747C
-#define  LFUSE  0x646C
-#define  EFUSE  0x666E
+//SII Instr.3 and Instr.4 in write fuse commands. See table 20-16 in ATtiny25/45/85 [DATASHEET] 2586q-avr-09/2013
+//         Instr.3         Instr.4
+#define  HFUSE  0x747C // SII: 0_0111_0100_00  0_0111_1100_00
+#define  LFUSE  0x646C // SII: 0_0110_0100_00  0_0110_1100_00
+#define  EFUSE  0x666E // SII: 0_0110_0110_00  0_0110_1110_00
 
 //default fuses settings for ATTiny13 devices
 #define FD_ATTiny13_Lfuse 0x6A
@@ -25,11 +26,6 @@
 #define FD_ATTiny_Lfuse 0x62
 #define FD_ATTiny_Hfuse 0xDF
 #define FD_ATTiny_Efuse 0xFF
-
-
-
-
-
 
 // Define ATTiny series signatures
 #define  ATTINY13   0x9007  // L: 0x6A, H: 0xFF             8 pin
@@ -138,9 +134,8 @@ void HVloop() {
       Serial.print(EEPROM.read(HFuse),HEX);
       if (sig == ATTINY24 || sig == ATTINY44 || sig == ATTINY84 || sig == ATTINY25 || sig == ATTINY45 || sig == ATTINY85){
         Serial.print("\tEFUSE, 0x");
-        Serial.print(EEPROM.read(EFuse),HEX);
+        Serial.println(EEPROM.read(EFuse),HEX);
       }
-      Serial.println();
       Serial.println("\tType 3 to store new predefined values");
       Serial.println();
       Serial.println("open http://www.engbedded.com/fusecalc/ for Atmel AVR® Fuse Calculator");
@@ -153,15 +148,15 @@ void HVloop() {
         Serial.read();
         delay(1);
       }
-      if (Alpha == '1'){
+      switch (Alpha){
+
+      case '1': // Reset the MCU fuses to factory default
         if (switches_new == (PINC & B00000111))  {
           build_HV();
           //Read and Print current fuses setting
-          Serial.print("\t\tPrevious fuses setting was: ");
+          Serial.print("\n\t\tPrevious fuses setting was: ");
           readFuses();
           //Burn new fuses setting
-          Serial.print("\t1. before write ");
-          Serial.println(sig,HEX);
           if (sig == ATTINY13) {
             writeFuse(LFUSE, FD_ATTiny13_Lfuse);
             writeFuse(HFUSE, FD_ATTiny13_Hfuse);
@@ -171,26 +166,23 @@ void HVloop() {
             writeFuse(HFUSE, FD_ATTiny_Hfuse);
             writeFuse(EFUSE, FD_ATTiny_Efuse);
           }
-          Serial.print("\t1. after write ");
-          Serial.println(sig,HEX);
           Serial.print("\t\tCurrent fuses setting is:   ");
           readFuses();
           //Turn off HV 
           digitalWrite(SCI, LOW);
           digitalWrite(ATtiny_VCC, LOW);    // Target Vcc Off
           onOff = 0;                 // 12v Off
-          Serial.println("\n\t\t\t\t\tDone\n\n");
+          Serial.println("\n\t\t\t\t\tDone\n");
         }
-      } 
-      else if (Alpha == '2'){
+        break;
+
+      case '2': // Burn the MCU fuses to predefined values
         if (switches_new == (PINC & B00000111)) {
           build_HV();
           //Read and Print current fuses setting
-          Serial.print("\t\tPrevious fuses setting was: ");
+          Serial.print("\n\t\tPrevious fuses setting was: ");
           readFuses();
           //Burn new fuses setting
-          Serial.print("\t2. before write ");
-          Serial.println(sig,HEX);
           if (sig == ATTINY13) {
             writeFuse(LFUSE, EEPROM.read(LFuse));
             writeFuse(HFUSE, EEPROM.read(HFuse));
@@ -200,15 +192,13 @@ void HVloop() {
             writeFuse(HFUSE, EEPROM.read(HFuse));
             writeFuse(EFUSE, EEPROM.read(EFuse));
           }
-          Serial.print("\t2. after write ");
-          Serial.println(sig,HEX);
           Serial.print("\t\tCurrent fuses setting is:   ");
           readFuses();
           //Turn off HV 
           digitalWrite(SCI, LOW);
           digitalWrite(ATtiny_VCC, LOW);    // Target Vcc Off
           onOff = 0;                 // 12v Off
-          Serial.println("\n\t\t\t\t\tDone\n\n");
+          Serial.println("\n\t\t\t\t\tDone\n");
 
           while (Serial.available() >0) {
             delay(1);
@@ -216,8 +206,9 @@ void HVloop() {
             delay(1);
           }
         }
-      }
-      else if (Alpha == '3'){
+        break;
+
+      case '3': // Store new predefined values
         while (get_fuses_values() == -1) {
           delay(1);
           Serial.println("\tERROR: you should enter exatly two capital HEX digits for each fuse, try again.");
@@ -228,9 +219,8 @@ void HVloop() {
             delay(1);
           }         
         }
-        EEPROM.write(LFuse, lfuse);
-        EEPROM.write(HFuse, hfuse);
-        EEPROM.write(EFuse, efuse);
+        Serial.println("\n\t\t\t\t\tDone\n");
+        break;
       }
     } 
     else { //no MCU found
@@ -251,93 +241,116 @@ void HVloop() {
 }
 
 int get_fuses_values(){
-
-  Serial.println("\tEnter the LFuse value (two HEX digits)");
+  Serial.println ("\n\tType 1 for changing LFuse"); 
+  Serial.println ("\tType 2 for changing HFuse"); 
+  Serial.println ("\tType 3 for changing EFuse"); 
   while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
   delay(1);
-  digit1 = Serial.read();
+  Alpha = Serial.read();
   delay(1);
-  if (digit1 >= 'A' && digit1 <= 'F') digit1 = (digit1 - 'A'+10) << 4;
-  else if (digit1 >= '0' && digit1 <= '9') digit1 = (digit1 - '0') << 4;
-  else {
-    Serial.print("Lfuse digit1\t");
-    Serial.println(char(digit1));
-    return -1;//input error
-  }
-  digit2 = Serial.read();
-  if (digit2 >= 'A' && digit2 <= 'F') digit2 = digit2 - 'A' + 10;
-  else if (digit2 >= '0' && digit2 <= '9') digit2 = digit2 - '0';
-  else {
-    Serial.print("Lfuse digit2\t");
-    Serial.println(char(digit2));
-    return -1;//input error
-  }
-  lfuse = digit1 | digit2;
-  Serial.print("\t0x");
-  Serial.println(lfuse,HEX);
-  while (Serial.available() >0) {
-    delay(1);
-    Serial.read();
-    delay(1);
-  } 
-
-  Serial.println("\tEnter the HFuse value (two HEX digits)");
-  while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
-  digit1 = Serial.read();
-  delay(1);
-  if (digit1 >= 'A' && digit1 <= 'F') digit1 = (digit1 - 'A'+10) << 4;
-  else if (digit1 >= '0' && digit1 <= '9') digit1 = (digit1 - '0') << 4;
-  else {
-    Serial.print("Hfuse digit1\t");
-    Serial.println(char(digit1));
-    return -1;//input error
-  }
-  digit2 = Serial.read();
-  if (digit2 >= 'A' && digit2 <= 'F') digit2 = digit2 - 'A' + 10;
-  else if (digit2 >= '0' && digit2 <= '9') digit2 = digit2 - '0';
-  else {
-    Serial.print("Hfuse digit2\t");
-    Serial.println(char(digit2));
-    return -1;//input error
-  }
-  hfuse = digit1 | digit2;
-  Serial.print("\t0x");
-  Serial.println(hfuse,HEX);
   while (Serial.available() >0) {
     delay(1);
     Serial.read();
     delay(1);
   }
+  switch (Alpha){
 
-  if (sig |= ATTINY13){  
-    Serial.println("\tEnter the EFuse value (two HEX digits)");
+  case '1': // Change LFuse
+    Serial.print("\n\tEnter the LFuse value (two HEX digits)");
+    while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
+    delay(1);
+    digit1 = Serial.read();
+    delay(1);
+    if (digit1 >= 'A' && digit1 <= 'F') digit1 = (digit1 - 'A'+10) << 4;
+    else if (digit1 >= '0' && digit1 <= '9') digit1 = (digit1 - '0') << 4;
+    else {
+      Serial.print("Lfuse digit1\t");
+      Serial.println(char(digit1));
+      return -1;//input error
+    }
+    digit2 = Serial.read();
+    if (digit2 >= 'A' && digit2 <= 'F') digit2 = digit2 - 'A' + 10;
+    else if (digit2 >= '0' && digit2 <= '9') digit2 = digit2 - '0';
+    else {
+      Serial.print("Lfuse digit2\t");
+      Serial.println(char(digit2));
+      return -1;//input error
+    }
+    lfuse = digit1 | digit2;
+    Serial.print("\t0x");
+    Serial.println(lfuse,HEX);
+    while (Serial.available() >0) {
+      delay(1);
+      Serial.read();
+      delay(1);
+    } 
+    EEPROM.write(LFuse, lfuse);
+    break;
+
+  case '2': // Change HFuse
+    Serial.print("\n\tEnter the HFuse value (two HEX digits)");
     while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
     digit1 = Serial.read();
     delay(1);
     if (digit1 >= 'A' && digit1 <= 'F') digit1 = (digit1 - 'A'+10) << 4;
     else if (digit1 >= '0' && digit1 <= '9') digit1 = (digit1 - '0') << 4;
     else {
-      Serial.print("Efuse digit1\t");
+      Serial.print("Hfuse digit1\t");
       Serial.println(char(digit1));
       return -1;//input error
-    }    
+    }
     digit2 = Serial.read();
     if (digit2 >= 'A' && digit2 <= 'F') digit2 = digit2 - 'A' + 10;
     else if (digit2 >= '0' && digit2 <= '9') digit2 = digit2 - '0';
     else {
-      Serial.print("Efuse digit2\t");
+      Serial.print("Hfuse digit2\t");
       Serial.println(char(digit2));
       return -1;//input error
     }
-    efuse = digit1 | digit2;
+    hfuse = digit1 | digit2;
     Serial.print("\t0x");
-    Serial.println(efuse,HEX);
-
+    Serial.println(hfuse,HEX);
     while (Serial.available() >0) {
       delay(1);
       Serial.read();
       delay(1);
     }
+    EEPROM.write(HFuse, hfuse);
+    break;
+
+  case '3': // Change EFuse
+    if (sig |= ATTINY13){  
+      Serial.print("\n\tEnter the EFuse value (two HEX digits)");
+      while ((Serial.available() == 0) && (switches_new == (PINC & B00000111))) delay(1);
+      digit1 = Serial.read();
+      delay(1);
+      if (digit1 >= 'A' && digit1 <= 'F') digit1 = (digit1 - 'A'+10) << 4;
+      else if (digit1 >= '0' && digit1 <= '9') digit1 = (digit1 - '0') << 4;
+      else {
+        Serial.print("Efuse digit1\t");
+        Serial.println(char(digit1));
+        return -1;//input error
+      }    
+      digit2 = Serial.read();
+      if (digit2 >= 'A' && digit2 <= 'F') digit2 = digit2 - 'A' + 10;
+      else if (digit2 >= '0' && digit2 <= '9') digit2 = digit2 - '0';
+      else {
+        Serial.print("Efuse digit2\t");
+        Serial.println(char(digit2));
+        return -1;//input error
+      }
+      efuse = digit1 | digit2;
+      Serial.print("\t0x");
+      Serial.println(efuse,HEX);
+
+      while (Serial.available() >0) {
+        delay(1);
+        Serial.read();
+        delay(1);
+      }
+    }
+    EEPROM.write(EFuse, efuse);
+    break;
   }
 
   return 0;
@@ -365,7 +378,7 @@ byte shiftOut (byte val1, byte val2) {
   timeout =LOW; // signifies that MCU was found within the timeout limit and the signatue was read
   //Wait until SDO goes high
   while (!digitalRead(SDO)){
-    if (millis() - timecount > 2000){ // wait timeout time for the MCU to respond
+    if (millis() - timecount > 300){ // wait timeout time for the MCU to respond
       timeout = HIGH; // timeout elapsed
       break;
     }
@@ -422,6 +435,15 @@ int readSignature () {
   }
   return sig;
 }
+
+
+
+
+
+
+
+
+
 
 
 

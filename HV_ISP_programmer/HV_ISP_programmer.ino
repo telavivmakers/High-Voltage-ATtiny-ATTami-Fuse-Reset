@@ -78,7 +78,7 @@ void loop(){
     }
     else if (switches_new & B00000100){ //ATTAmi load bootloader
       Serial.println("ATTami load bootloader");
-     ATTami_load_bootloader();
+      ATTami_load_bootloader();
     }
   }
 } 
@@ -94,6 +94,9 @@ void ATTami_test_mode(){
 }
 
 void ATTami_load_bootloader(){
+  Serial.println("Yet not implemented.");
 }
+
+
 
 
