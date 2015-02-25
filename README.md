@@ -11,3 +11,7 @@ The circuit will be build as Arduino shield with the following sockets:
 * 14 pin DIP socket for 14 pin ATTiny24, ATTiny44 or ATTiny84 fuse reseting/programming.
 * Headers and POGO-PIN fixture for reseting/programming [ATTami](https://github.com/telavivmakers/at-tami) boards.
 
+
+###todo
+* TARGET/ ISP VCC switch must die
+* 
