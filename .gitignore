@@ -32,6 +32,9 @@ eagle.epf
 *.drd
 *.drd.*
 
+*.pro
+*.job
+
 *.info
 
 *.eps
