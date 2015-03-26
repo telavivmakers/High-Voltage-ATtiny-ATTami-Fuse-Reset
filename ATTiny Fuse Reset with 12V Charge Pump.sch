@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="7.1.0">
+<eagle version="7.2.0">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -3887,10 +3887,11 @@ test
 <junction x="-177.8" y="88.9"/>
 <wire x1="-177.8" y1="71.12" x2="-187.96" y2="71.12" width="0.1524" layer="91"/>
 <wire x1="-187.96" y1="71.12" x2="-187.96" y2="48.26" width="0.1524" layer="91"/>
-<wire x1="-187.96" y1="48.26" x2="-193.04" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="-187.96" y1="48.26" x2="-190.5" y2="48.26" width="0.1524" layer="91"/>
 <junction x="-177.8" y="71.12"/>
 <pinref part="X1" gate="-4" pin="S"/>
 <pinref part="R26" gate="B" pin="1"/>
+<pinref part="IC1" gate="E" pin="I"/>
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="P$21"/>
@@ -4176,7 +4177,7 @@ test
 <wire x1="-172.72" y1="60.96" x2="-177.8" y2="60.96" width="0.1524" layer="91"/>
 <wire x1="-177.8" y1="60.96" x2="-177.8" y2="17.78" width="0.1524" layer="91"/>
 <wire x1="-177.8" y1="17.78" x2="-220.98" y2="17.78" width="0.1524" layer="91"/>
-<wire x1="-220.98" y1="17.78" x2="-220.98" y2="15.24" width="0.1524" layer="91"/>
+<pinref part="IC1" gate="D" pin="I"/>
 </segment>
 </net>
 <net name="N$22" class="0">
@@ -4233,6 +4234,9 @@ test
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="204,1,-289.56,116.84,U1,VIN,,,,"/>
+</errors>
 </schematic>
 </drawing>
 <compatibility>
