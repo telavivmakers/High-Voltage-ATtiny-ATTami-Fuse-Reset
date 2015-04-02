@@ -29,7 +29,7 @@
 <layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
 <layer number="50" name="dxf" color="7" fill="1" visible="no" active="no"/>
-<layer number="51" name="tDocu" color="6" fill="1" visible="yes" active="yes"/>
+<layer number="51" name="tDocu" color="6" fill="1" visible="no" active="yes"/>
 <layer number="52" name="bDocu" color="7" fill="1" visible="no" active="yes"/>
 <layer number="53" name="tGND_GNDA" color="7" fill="9" visible="no" active="no"/>
 <layer number="54" name="bGND_GNDA" color="1" fill="9" visible="no" active="no"/>
@@ -69,12 +69,12 @@
 <board>
 <plain>
 <text x="34.29" y="23.114" size="1.778" layer="104" rot="R90">ISP</text>
-<text x="0.508" y="45.847" size="1.778" layer="104">5V</text>
-<text x="0.127" y="32.004" size="1.778" layer="104">3.3V</text>
-<text x="3.556" y="52.578" size="1.143" layer="104" rot="R180">HV</text>
-<text x="11.938" y="48.006" size="1.143" layer="104">ISP</text>
-<text x="1.27" y="20.32" size="1.778" layer="104">test</text>
-<text x="8.89" y="20.32" size="1.778" layer="104">load</text>
+<text x="0.508" y="45.847" size="1.6764" layer="104">5V</text>
+<text x="-0.127" y="33.782" size="1.6764" layer="104">3.3V</text>
+<text x="3.302" y="50.038" size="1.6764" layer="104" rot="R90">HV</text>
+<text x="15.875" y="49.149" size="1.6764" layer="104" rot="R90">ISP</text>
+<text x="1.143" y="30.48" size="1.778" layer="104">test</text>
+<text x="8.763" y="30.353" size="1.778" layer="104">load</text>
 <text x="65.786" y="28.829" size="0.8128" layer="104">PB0</text>
 <text x="65.786" y="27.432" size="0.8128" layer="104">PB1</text>
 <text x="65.786" y="25.654" size="0.8128" layer="104">PB2</text>
@@ -101,17 +101,19 @@ Programmer</text>
 <wire x1="66.04" y1="40.386" x2="66.04" y2="51.816" width="0.000253125" layer="20"/>
 <wire x1="66.04" y1="51.816" x2="64.516" y2="53.34" width="0.000253125" layer="20"/>
 <wire x1="64.516" y1="53.34" x2="0" y2="53.34" width="0.000253125" layer="20"/>
-<text x="44.323" y="4.699" size="1.016" layer="104" rot="R180">-GND-</text>
-<text x="47.117" y="4.699" size="1.016" layer="104" rot="R180">VIN</text>
-<text x="39.116" y="4.699" size="1.016" layer="104" rot="R180">5V</text>
-<text x="36.068" y="3.81" size="1.016" layer="104" rot="R90">3v3</text>
-<text x="33.528" y="3.937" size="1.016" layer="104" rot="R90">reset</text>
-<text x="25.146" y="48.514" size="1.016" layer="104">gnd</text>
-<text x="42.672" y="49.53" size="1.016" layer="104" rot="R180">|&lt; digital  13-8&gt;|</text>
-<text x="59.309" y="49.657" size="1.016" layer="104" rot="R180">|&lt;  digital 7-2 &gt;|</text>
-<text x="62.738" y="48.641" size="1.016" layer="104">RX</text>
-<text x="60.071" y="48.641" size="1.016" layer="104">TX</text>
-<text x="49.911" y="3.937" size="1.143" layer="104">|&lt; analog 0-5 &gt;|</text>
+<text x="44.45" y="1.143" size="1.016" layer="104" rot="R180">-GND-</text>
+<text x="47.244" y="1.143" size="1.016" layer="104" rot="R180">VIN</text>
+<text x="39.243" y="1.143" size="1.016" layer="104" rot="R180">5V</text>
+<text x="37.084" y="1.143" size="1.016" layer="104" rot="R180">3v3</text>
+<text x="34.29" y="1.143" size="1.016" layer="104" rot="R180">rst</text>
+<text x="25.146" y="52.324" size="1.016" layer="104">gnd</text>
+<text x="42.545" y="53.213" size="1.016" layer="104" rot="R180">|&lt; digital  13-8&gt;|</text>
+<text x="59.436" y="53.213" size="1.016" layer="104" rot="R180">|&lt;  digital 7-2 &gt;|</text>
+<text x="62.611" y="52.197" size="1.016" layer="104">RX</text>
+<text x="60.071" y="52.197" size="1.016" layer="104">TX</text>
+<text x="49.784" y="0.381" size="1.143" layer="104">|&lt; analog 0-5 &gt;|</text>
+<text x="28.829" y="47.625" size="1.4732" layer="104">|&lt;--14 pin--&gt;|</text>
+<text x="15.748" y="47.625" size="1.4732" layer="104">|&lt;8 pin&gt;|</text>
 </plain>
 <libraries>
 <library name="ATtami">
