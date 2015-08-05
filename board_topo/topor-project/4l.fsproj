@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xsi:noNamespaceSchemaLocation="Project.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Version current="1"/>
+	<Format>Project</Format>
+	<Header>
+		<Program name="TopoR" version="6.0"/>
+		<GUID>{9ECF86DE-65FD-475A-8E80-1D7FE9222CC9}</GUID>
+		<Annotation>Project file</Annotation>
+	</Header>
+	<Document>
+		<LocalLibrary />
+		<Pcb>
+			<File path=".\ATTiny Fuse Reset with 12V Charge Pump.fsx" Folder="-1" isopened="1"/>
+		</Pcb>
+		<ARouteSessions>
+			<Session name="ATTiny Fuse Reset with 12V Charge Pump" date="2015-08-05 02:40:18" path=".\autoroute_ATTiny Fuse Reset with 12V Charge Pump_150805024018\">
+			<File path=".\autoroute_ATTiny Fuse Reset with 12V Charge Pump_150805024018\ATTiny Fuse Reset with 12V Charge Pump_2772-14sa.fsb" Folder="-1" isopened="0"/>
+			</Session>
+		</ARouteSessions>
+	</Document>
+</Project>
