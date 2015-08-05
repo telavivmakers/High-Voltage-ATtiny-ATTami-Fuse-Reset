@@ -2924,7 +2924,7 @@ by exp-lbrs.ulp</description>
 <part name="U1" library="ATtami" deviceset="ARDUINOR3" device="-BPLACE" value="ARDUINOR3-BPLACE"/>
 <part name="R11" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="220R"/>
 <part name="SUPPLY7" library="supply2" deviceset="GND" device=""/>
-<part name="HV_ON" library="ATtami" deviceset="LED" device="-0805" value="HV on"/>
+<part name="HV_O" library="ATtami" deviceset="LED" device="-0805" value="HV"/>
 <part name="R24" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="1k"/>
 <part name="D5" library="ATtami" deviceset="SCHOTTKY-DIODE" device="SOD-323" value="1N4148"/>
 <part name="C1" library="ATtami" deviceset="CAP" device="0805" value="10uF"/>
@@ -2946,8 +2946,8 @@ by exp-lbrs.ulp</description>
 <part name="R6" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="220R"/>
 <part name="R5" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="220R"/>
 <part name="R12" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="220R"/>
-<part name="ISP" library="ATtami" deviceset="LED" device="-0805" value="pmode"/>
-<part name="ISP_ERR" library="ATtami" deviceset="LED" device="-0805" value="err"/>
+<part name="ISP" library="ATtami" deviceset="LED" device="-0805" value="PMD"/>
+<part name="ISP_ERR" library="ATtami" deviceset="LED" device="-0805" value="ERR"/>
 <part name="HBEAT" library="ATtami" deviceset="LED" device="-0805" value="H.B."/>
 <part name="Q2" library="microbuilder" deviceset="MOSFET-P" device="" value="PMV65XP"/>
 <part name="PB1" library="ATtami" deviceset="LED" device="-0805" value="PB1"/>
@@ -2960,7 +2960,7 @@ by exp-lbrs.ulp</description>
 <part name="SUPPLY1" library="supply2" deviceset="GND" device=""/>
 <part name="SUPPLY2" library="supply2" deviceset="GND" device=""/>
 <part name="IC1" library="74xx-eu" deviceset="74*04" device="D" technology="HC"/>
-<part name="PB5" library="ATtami" deviceset="LED" device="-0805" value="PB5 rst"/>
+<part name="PB5" library="ATtami" deviceset="LED" device="-0805" value="PB5"/>
 <part name="SUPPLY3" library="supply2" deviceset="GND" device=""/>
 <part name="R1" library="ATtami" deviceset="RESISTOR" device="0805-RES" value="4.7K"/>
 <part name="Q1" library="microbuilder" deviceset="MOSFET-N" device="REFLOW" value="BSS138"/>
@@ -3078,7 +3078,7 @@ test
 <attribute name="VALUE" x="-221.488" y="162.814" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="SUPPLY7" gate="GND" x="-243.84" y="152.4" smashed="yes"/>
-<instance part="HV_ON" gate="LED" x="-220.98" y="139.7" smashed="yes">
+<instance part="HV_O" gate="LED" x="-220.98" y="139.7" smashed="yes">
 <attribute name="NAME" x="-219.583" y="132.9944" size="1.778" layer="95"/>
 <attribute name="VALUE" x="-220.1672" y="130.4798" size="1.778" layer="96"/>
 </instance>
@@ -3607,7 +3607,7 @@ test
 <wire x1="-307.34" y1="111.76" x2="-307.34" y2="109.22" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="HV_ON" gate="LED" pin="C"/>
+<pinref part="HV_O" gate="LED" pin="C"/>
 <pinref part="SUPPLY8" gate="GND" pin="GND"/>
 </segment>
 <segment>
@@ -3922,7 +3922,7 @@ test
 <segment>
 <pinref part="R11" gate="G$1" pin="1"/>
 <wire x1="-220.98" y1="154.94" x2="-220.98" y2="152.4" width="0.1524" layer="91"/>
-<pinref part="HV_ON" gate="LED" pin="A"/>
+<pinref part="HV_O" gate="LED" pin="A"/>
 <wire x1="-220.98" y1="154.94" x2="-220.98" y2="142.24" width="0.1524" layer="91"/>
 </segment>
 </net>
