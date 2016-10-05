@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xsi:noNamespaceSchemaLocation="Project.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Version current="1"/>
+	<Format>Project</Format>
+	<Header>
+		<Program name="TopoR" version="6.2"/>
+		<GUID>{F53CDDD0-A3D6-4027-B91D-E6264AC4073B}</GUID>
+		<Annotation>Project file</Annotation>
+	</Header>
+	<Document>
+		<LocalLibrary />
+		<Pcb>
+			<File path=".\ATTiny Fuse Reset with 12V Charge Pump.fsx" isopened="1"/>
+		</Pcb>
+		<ARouteSessions>
+			<Session name="ATTiny Fuse Reset with 12V Charge Pump" date="2016-10-04 16:46:50" path=".\autoroute_ATTiny Fuse Reset with 12V Charge Pump_161004164650\">
+			<File path=".\autoroute_ATTiny Fuse Reset with 12V Charge Pump_161004164650\ATTiny Fuse Reset with 12V Charge Pump_2123-51sa.fsb" isopened="0"/>
+			<File path=".\autoroute_ATTiny Fuse Reset with 12V Charge Pump_161004164650\ATTiny Fuse Reset with 12V Charge Pump_2251-26sa.fsb" isopened="0"/>
+			<File path=".\autoroute_ATTiny Fuse Reset with 12V Charge Pump_161004164650\ATTiny Fuse Reset with 12V Charge Pump_2259-25sa.fsb" isopened="0"/>
+			<File path=".\autoroute_ATTiny Fuse Reset with 12V Charge Pump_161004164650\ATTiny Fuse Reset with 12V Charge Pump_2278-24sa.fsb" isopened="0"/>
+			<File path=".\autoroute_ATTiny Fuse Reset with 12V Charge Pump_161004164650\ATTiny Fuse Reset with 12V Charge Pump_2297-23sa.fsb" isopened="0"/>
+			</Session>
+		</ARouteSessions>
+	</Document>
+</Project>
