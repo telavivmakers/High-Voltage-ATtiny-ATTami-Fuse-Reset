@@ -11,14 +11,15 @@ The circuit will be build as Arduino shield with the following sockets:
 * 14 pin DIP socket for 14 pin ATTiny24, ATTiny44 or ATTiny84 fuse reseting/programming.
 * Headers and POGO-PIN fixture for reseting/programming [ATTami](https://github.com/telavivmakers/at-tami) boards.
 
-###schema
+###Schema
+[PDF](https://github.com/telavivmakers/High-Voltage-ATtiny-ATTami-Fuse-Reset/raw/master/ATTiny%20Fuse%20Reset%20with%2012V%20Charge%20Pump-schema.pdf)
 
-
-###layout
+###Layout
 using topoR and some manual work
 ![](http://i.imgur.com/0CaPsjEl.jpg)
 
-###BOM
+###BOM 
+(Bill_of_materials)
 [goog spreadsheet](https://docs.google.com/spreadsheets/d/1eC7mB2Z6gQL06fDRTFxQvt10aQQUTHuxl4aS4G3XxKg/edit?usp=sharing)
 
 ###todo
