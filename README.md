@@ -2,8 +2,8 @@
 
 ##BRANCH NOTE
 this was hastliy routed using topoR router. you can find the fabbed version in the noard_topo directory. 
-
-
+![](http://i.imgur.com/DM80O4C.png)
+##notes
 Based on Wayne Holder work "ATTiny Fuse Reset with 12 Volt Charge Pump" from 2010 [link](https://sites.google.com/site/wayneholder/attiny-fuse-reset-with-12-volt-charge-pump) 
 
 With some changes:
